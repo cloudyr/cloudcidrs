@@ -1,0 +1,25 @@
+Package: cloudcidrs
+Type: Package
+Title: Tools to Obtain and Work with Cloud Provider CIDR Blocks
+Version: 0.1.0
+Date: 2016-10-04
+Author: Bob Rudis (bob@rud.is)
+Maintainer: Bob Rudis <bob@rud.is>
+Description: Tools to Obtain and Work with Cloud Provider CIDR Blocks.
+URL: http://gitlab.com/hrbrmstr/cloudcidrs
+BugReports: https://gitlab.com/hrbrmstr/cloudcidrs/issues
+License: AGPL
+Suggests:
+    testthat
+Depends:
+    R (>= 3.2.0)
+Imports:
+    purrr,
+    httr,
+    jsonlite,
+    gdns,
+    stringi,
+    xml2,
+    rvest,
+    tibble
+RoxygenNote: 5.0.1

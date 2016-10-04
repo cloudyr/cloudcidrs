@@ -1,0 +1,52 @@
+---
+output: rmarkdown::github_document
+---
+
+`cloudcidrs` : Tools to Obtain and Work with Cloud Provider CIDR Blocks
+
+The following functions are implemented:
+
+- `amazon_ranges`:	Amazon AWS cloud ranges
+- `azure_ranges`:	Azure ranges
+- `google_ranges`:	Google Cloud ranges
+- `softlayer_ranges`:	Softlayer ranges
+- `normalize_ipv4`:	Normalize Cloud CIDR return values
+
+### Installation
+
+```{r eval=FALSE}
+devtools::install_git("https://gitlab.com/hrbrmstr/cloudcidrs.git")
+```
+
+```{r message=FALSE, warning=FALSE, error=FALSE}
+options(width=120)
+```
+
+### Usage
+
+```{r message=FALSE, warning=FALSE, error=FALSE}
+library(cloudcidrs)
+
+# current verison
+packageVersion("cloudcidrs")
+
+amazon_ranges() %>%  normalize_ipv4()
+
+azure_ranges() %>%  normalize_ipv4()
+
+google_ranges() %>%  normalize_ipv4()
+
+softlayer_ranges() %>%  normalize_ipv4()
+```
+
+### Test Results
+
+```{r message=FALSE, warning=FALSE, error=FALSE}
+library(cloudcidrs)
+library(testthat)
+
+date()
+
+test_dir("tests/")
+```
+
