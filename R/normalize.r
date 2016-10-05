@@ -9,14 +9,18 @@
 #' @export
 #' @examples
 #' amazon_ranges() %>% normalize_ipv4()
-#' google_ranges() %>% normalize_ipv4()
 #' azure_ranges() %>% normalize_ipv4()
+#' digitalocean_ranges() %>% normalize_ipv4()
+#' google_ranges() %>% normalize_ipv4()
+#' racksapce_ranges() %>% normalize_ipv4()
 #' softlayer_ranges() %>% normalize_ipv4()
 normalize_ipv4 <- function(x) {
 
   if (inherits(x, "amazon")) return(unlist(x$prefixes$ip_prefix))
-  if (inherits(x, "google")) return(unlist(x$ipv4))
   if (inherits(x, "azure")) return(unlist(x$subnets))
+  if (inherits(x, "digitalocean")) return(x)
+  if (inherits(x, "google")) return(unlist(x$ipv4))
+  if (inherits(x, "rackspace")) return(x)
   if (inherits(x, "softlayer")) return(unlist(x$ip_range))
 
   warning("Cloud provider not recognized")

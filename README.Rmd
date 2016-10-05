@@ -4,11 +4,24 @@ output: rmarkdown::github_document
 
 `cloudcidrs` : Tools to Obtain and Work with Cloud Provider CIDR Blocks
 
+I'm only adding in cloud providers on a request basis (i.e. I only need the list that I
+originally made, so if you need another cloud provider, file an issue or — prefereably — PR).
+
+Most proviers do not provide an API or even an official list, so there's some elbow 
+grease involved in a few of the functions to get as comprehensive of a list as possible for
+each provider.
+
+A future plan is to [`memoise`](https://cran.r-project.org/package=memoise) the results 
+and also provide disk-level caching since these CIDRs don't change frequently enough to 
+warrant network traffic for each call.
+
 The following functions are implemented:
 
 - `amazon_ranges`:	Amazon AWS cloud ranges
 - `azure_ranges`:	Azure ranges
+- `digitalocean_ranges`:	Digital Ocean ranges
 - `google_ranges`:	Google Cloud ranges
+- `rackspace_ranges`:	Rackspace ranges
 - `softlayer_ranges`:	Softlayer ranges
 - `normalize_ipv4`:	Normalize Cloud CIDR return values
 
@@ -24,7 +37,7 @@ options(width=120)
 
 ### Usage
 
-```{r message=FALSE, warning=FALSE, error=FALSE}
+```{r message=FALSE, warning=FALSE, error=FALSE, cache=TRUE}
 library(cloudcidrs)
 
 # current verison
@@ -34,7 +47,11 @@ amazon_ranges() %>%  normalize_ipv4()
 
 azure_ranges() %>%  normalize_ipv4()
 
+digitalocean_ranges() %>%  normalize_ipv4()
+
 google_ranges() %>%  normalize_ipv4()
+
+rackspace_ranges() %>%  normalize_ipv4()
 
 softlayer_ranges() %>%  normalize_ipv4()
 ```
