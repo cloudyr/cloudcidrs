@@ -1,7 +1,9 @@
 
+[![CRAN](http://www.r-pkg.org/badges/version/cloudcidrs)](http://cran.r-project.org/package=cloudcidrs) [![Build Status](https://travis-ci.org/cloudyr/cloudcidrs.png?branch=master)](https://travis-ci.org/cloudyr/cloudcidrs) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/cloudyr/cloudcidrs?branch=master&svg=true)](https://ci.appveyor.com/project/cloudyr/cloudcidrs) [![Coverage Status](https://img.shields.io/codecov/c/github/cloudyr/cloudcidrs/master.svg)](https://codecov.io/github/cloudyr/cloudcidrs?branch=master)
+
 `cloudcidrs` : Tools to Obtain and Work with Cloud Provider CIDR Blocks
 
-I'm only adding in cloud providers on a request basis (i.e. I only need the list that I originally made, so if you need another cloud provider, file an issue or — prefereably — PR).
+Cloud providers will be added on an as-needed or request basis (i.e. if you need another cloud provider, file an issue or — prefereably — PR).
 
 Most proviers do not provide an API or even an official list, so there's some elbow grease involved in a few of the functions to get as comprehensive of a list as possible for each provider.
 
@@ -20,7 +22,7 @@ The following functions are implemented:
 ### Installation
 
 ``` r
-devtools::install_git("https://gitlab.com/hrbrmstr/cloudcidrs.git")
+devtools::install_git("https://github.com/cloudyr/cloudcidrs.git")
 ```
 
 ``` r
@@ -807,7 +809,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Wed Oct  5 10:25:41 2016"
+    ## [1] "Fri Oct  7 10:50:41 2016"
 
 ``` r
 test_dir("tests/")
@@ -818,3 +820,7 @@ test_dir("tests/")
     ## 
     ## DONE ===================================================================================================================
     ## Nice code.
+
+------------------------------------------------------------------------
+
+[![cloudyr project logo](http://i.imgur.com/JHS98Y7.png)](https://github.com/cloudyr)

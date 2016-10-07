@@ -14,7 +14,8 @@ Suggests:
     iptools,
     urltools,
     rgeolocate,
-    cymruservices
+    cymruservices,
+    covr
 Depends:
     R (>= 3.2.0)
 Imports:
