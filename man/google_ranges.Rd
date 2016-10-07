@@ -10,7 +10,12 @@ google_ranges()
 list of 2 slots, one for \code{ipv4} and one for \code{ipv6} ranges
 }
 \description{
-Google Cloud ranges
+Retrieves the official list of Google cloud network ranges.
+}
+\details{
+It is unlikely that this list will change in your analysis session, so it is
+recommended that you cache the results. Future version will automatically cache
+the results both in-session and on-disk for a period of time.
 }
 \examples{
 ranges <- google_ranges()

@@ -3,6 +3,7 @@
 ^\.travis\.yml$
 ^README\.*Rmd$
 ^README\.*html$
+^README_cache$
 ^NOTES\.*Rmd$
 ^NOTES\.*html$
 ^appveyor\.yml$

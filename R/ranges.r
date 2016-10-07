@@ -43,7 +43,7 @@ amazon_ranges <- function() {
 #' @examples
 #' ranges <- rackspace_ranges()
 #'
-#' normalize_ipvr(ranges)
+#' normalize_ipv4(ranges)
 rackspace_ranges <- function() {
 
   rs_asns <- c("AS58683", "AS54636", "AS45187", "AS44716", "AS39921", "AS36248",
@@ -80,9 +80,9 @@ rackspace_ranges <- function() {
 #' @return character vector of IPv4 ranges
 #' @export
 #' @examples
-#' ranges <- digitialocean_ranges()
+#' ranges <- digitalocean_ranges()
 #'
-#' normalize_ipvr(ranges)
+#' normalize_ipv4(ranges)
 digitalocean_ranges <- function() {
 
   do_asns <- c("AS62567", "AS394362", "AS393406", "AS202109", "AS202018",

@@ -1,5 +1,13 @@
 #' Tools to Obtain and Work with Cloud Provider CIDR Blocks
 #'
+#' Some cloud providers provide either an API or a file that contains all of the
+#' public networks that make up their cloud infrastructure. Many force you to obtain this
+#' data from publicly available internet routing registration data. Tools are provided that
+#' provide a standard API to obtain the network information for supported cloud providers.
+#' Each provider function returns processed, raw data structures that can be normalized
+#' with additional functions to enable predictable and consistent data formats for
+#' further processing.
+#'
 #' @name cloudcidrs
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)

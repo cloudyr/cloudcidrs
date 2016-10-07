@@ -12,7 +12,7 @@
 #' azure_ranges() %>% normalize_ipv4()
 #' digitalocean_ranges() %>% normalize_ipv4()
 #' google_ranges() %>% normalize_ipv4()
-#' racksapce_ranges() %>% normalize_ipv4()
+#' rackspace_ranges() %>% normalize_ipv4()
 #' softlayer_ranges() %>% normalize_ipv4()
 normalize_ipv4 <- function(x) {
 

@@ -11,7 +11,12 @@ azure_ranges()
         2016-10-04, these subnets are IPv4 only.
 }
 \description{
-Azure ranges
+Retrieves the official list of Azure cloud network ranges.
+}
+\details{
+It is unlikely that this list will change in your analysis session, so it is
+recommended that you cache the results. Future version will automatically cache
+the results both in-session and on-disk for a period of time.
 }
 \examples{
 ranges <- azure_ranges()

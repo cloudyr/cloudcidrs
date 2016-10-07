@@ -13,13 +13,18 @@ character vector of IPv4 ranges
 Digitial Ocean (cowardly) doesn't publish their ranges, so we have to approximate with
 known Digital Ocean ASNs.
 }
+\details{
+It is unlikely that this list will change in your analysis session, so it is
+recommended that you cache the results. Future version will automatically cache
+the results both in-session and on-disk for a period of time.
+}
 \note{
 ASN list current as of October, 2016
 }
 \examples{
-ranges <- digitialocean_ranges()
+ranges <- digitalocean_ranges()
 
-normalize_ipvr(ranges)
+normalize_ipv4(ranges)
 }
 \references{
 \url{http://bgp.he.net/search?search\%5Bsearch\%5D=\%22Digital+Ocean\%22&commit=Search}
