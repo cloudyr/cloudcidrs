@@ -5,7 +5,7 @@
 
 Cloud providers will be added on an as-needed or request basis (i.e. if you need another cloud provider, file an issue or — prefereably — PR).
 
-Most proviers do not provide an API or even an official list, so there's some elbow grease involved in a few of the functions to get as comprehensive of a list as possible for each provider.
+Some cloud providers provide either an API or a file that contains all of the public networks that make up their cloud infrastructure. Many force you to obtain this data from publicly available internet routing registration data. Tools are provided that provide a standard API to obtain the network information for supported cloud providers. Each provider function returns processed, raw data structures that can be normalized with additional functions to enable predictable and consistent data formats for further processing.
 
 A future plan is to [`memoise`](https://cran.r-project.org/package=memoise) the results and also provide disk-level caching since these CIDRs don't change frequently enough to warrant network traffic for each call.
 
@@ -809,14 +809,14 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Fri Oct  7 10:50:41 2016"
+    ## [1] "Fri Oct  7 11:29:30 2016"
 
 ``` r
 test_dir("tests/")
 ```
 
     ## testthat results ========================================================================================================
-    ## OK: 0 SKIPPED: 0 FAILED: 0
+    ## OK: 12 SKIPPED: 0 FAILED: 0
     ## 
     ## DONE ===================================================================================================================
     ## Nice code.
