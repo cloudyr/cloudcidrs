@@ -13,6 +13,11 @@ list of 2 slots, one for \code{ipv4} and one for \code{ipv6} ranges
 Retrieves the official list of Google cloud network ranges.
 }
 \details{
+Google publishes their Compute Engine IP blocks via
+\href{https://cloud.google.com/compute/docs/faq#where_can_i_find_short_product_name_ip_ranges}{DNS TXT records}.
+While accurate, this list may not be complete as Google scales their public cloud
+infrastructure to meet demand and owns a large number of netblocks.
+
 It is unlikely that this list will change in your analysis session, so it is
 recommended that you cache the results. Future version will automatically cache
 the results both in-session and on-disk for a period of time.

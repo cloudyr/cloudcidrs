@@ -16,6 +16,8 @@ list of 4 slots the most interesting of which is \code{prefixes} which
 Retrieves the official list of Amazon cloud network ranges.
 }
 \details{
+Amazon provides their official netblock list in \href{https://ip-ranges.amazonaws.com/ip-ranges.json}{JSON format}.
+
 It is unlikely that this list will change in your analysis session, so it is
 recommended that you cache the results. Future version will automatically cache
 the results both in-session and on-disk for a period of time.

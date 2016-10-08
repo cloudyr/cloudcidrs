@@ -2,6 +2,8 @@
 #'
 #' Retrieves the official list of Amazon cloud network ranges.
 #'
+#' Amazon provides their official netblock list in \href{https://ip-ranges.amazonaws.com/ip-ranges.json}{JSON format}.
+#'
 #' It is unlikely that this list will change in your analysis session, so it is
 #' recommended that you cache the results. Future version will automatically cache
 #' the results both in-session and on-disk for a period of time.
@@ -50,16 +52,16 @@ rackspace_ranges <- function() {
                "AS33070", "AS27357", "AS22720", "AS19994", "AS15395", "AS12200",
                "AS10532")
 
-  map(sprintf("http://ipinfo.io/%s", rs_asns), function(rs_asn_url) {
+  purrr::map(sprintf("http://ipinfo.io/%s", rs_asns), function(rs_asn_url) {
     res <- httr::GET(rs_asn_url)
-    r <- content(res, as="parsed")
-    html_nodes(r, xpath=".//h2[@id='blocks']/following-sibling::table[1]") %>%
-      html_table() -> tab
+    r <- httr::content(res, as="parsed")
+    rvest::html_nodes(r, xpath=".//h2[@id='blocks']/following-sibling::table[1]") %>%
+      rvest::html_table() -> tab
     if (!("Netblock" %in% colnames(tab[[1]]))) return(NULL)
     unlist(tab[[1]]$Netblock)
   }) %>%
-    discard(is.null) %>%
-    flatten_chr() -> racks
+    purrr::discard(is.null) %>%
+    purrr::flatten_chr() -> racks
 
   class(racks) <- c("cidr", "rackspace", class(racks))
   racks
@@ -88,16 +90,16 @@ digitalocean_ranges <- function() {
   do_asns <- c("AS62567", "AS394362", "AS393406", "AS202109", "AS202018",
                "AS201229", "AS200130", "AS14061", "AS135340", "AS133165")
 
-  map(sprintf("http://ipinfo.io/%s", do_asns), function(do_asn_url) {
+  purrr::map(sprintf("http://ipinfo.io/%s", do_asns), function(do_asn_url) {
     res <- httr::GET(do_asn_url)
-    r <- content(res, as="parsed")
-    html_nodes(r, xpath=".//h2[@id='blocks']/following-sibling::table[1]") %>%
-      html_table() -> tab
+    r <- httr::content(res, as="parsed")
+    rvest::html_nodes(r, xpath=".//h2[@id='blocks']/following-sibling::table[1]") %>%
+      rvest::html_table() -> tab
     if (!("Netblock" %in% colnames(tab[[1]]))) return(NULL)
     unlist(tab[[1]]$Netblock)
   }) %>%
-    discard(is.null) %>%
-    flatten_chr() -> h2o
+    purrr::discard(is.null) %>%
+    purrr::flatten_chr() -> h2o
 
   class(h2o) <- c("cidr", "digitalocean", class(h2o))
 
@@ -108,6 +110,11 @@ digitalocean_ranges <- function() {
 #' Google Cloud ranges
 #'
 #' Retrieves the official list of Google cloud network ranges.
+#'
+#' Google publishes their Compute Engine IP blocks via
+#' \href{https://cloud.google.com/compute/docs/faq#where_can_i_find_short_product_name_ip_ranges}{DNS TXT records}.
+#' While accurate, this list may not be complete as Google scales their public cloud
+#' infrastructure to meet demand and owns a large number of netblocks.
 #'
 #' It is unlikely that this list will change in your analysis session, so it is
 #' recommended that you cache the results. Future version will automatically cache
@@ -147,6 +154,10 @@ google_ranges <- function() {
 #'
 #' Retrieves the official list of Azure cloud network ranges.
 #'
+#' Microsoft publishes their Azure ranges via a downloadable XML (ugh) file that you
+#' can retrieve starting from
+#' \href{https://www.microsoft.com/en-us/download/confirmation.aspx?id=41653}{this page}.
+#'
 #' It is unlikely that this list will change in your analysis session, so it is
 #' recommended that you cache the results. Future version will automatically cache
 #' the results both in-session and on-disk for a period of time.
@@ -164,19 +175,19 @@ azure_ranges <- function() {
 
   r <- httr::content(res, as="parsed", encoding="UTF-8")
 
-  xml_find_first(r, ".//a[contains(@href, 'download.microsoft.com')]") %>%
-    xml_attr("href") -> azure_link
+  xml2::xml_find_first(r, ".//a[contains(@href, 'download.microsoft.com')]") %>%
+    xml2::xml_attr("href") -> azure_link
 
   res <- httr::GET(azure_link)
 
   r <- httr::content(res, as="text", encoding="UTF-8")
 
   doc <- xml2::read_xml(r)
-  xml_find_all(doc, ".//Region") %>%
+  xml2::xml_find_all(doc, ".//Region") %>%
     purrr::map_df(function(x) {
       region_name <- xml_attr(x, "Name")
-      xml_find_all(x, ".//IpRange") %>%
-        xml_attr("Subnet") -> subnets
+      xml2::xml_find_all(x, ".//IpRange") %>%
+        xml2::xml_attr("Subnet") -> subnets
       data.frame(region_name, subnets, stringsAsFactors=FALSE) %>%
         as_tibble()
     }) -> azur
@@ -190,33 +201,60 @@ azure_ranges <- function() {
 #'
 #' Retrieves the official list of Softlayer cloud network ranges.
 #'
+#' Softlayer provides \href{https://knowledgelayer.softlayer.com/content/what-ip-ranges-do-i-allow-through-firewall}{a list}
+#' of public netblock ranges
+#'
 #' It is unlikely that this list will change in your analysis session, so it is
 #' recommended that you cache the results. Future version will automatically cache
 #' the results both in-session and on-disk for a period of time.
 #'
+#' @param method if \code{list}, this method will use the HTML published ranges; if
+#'        \code{asn}, this method will build the CIDR list from Softlayer publishedf
+#'        ASNs.
 #' @return a \code{tibble}, the most interesting colun of  which is \code{ip_range}
 #' @export
 #' @examples
 #' ranges <- softlayer_ranges()
 #'
 #' normalize_ipv4(ranges)
-softlayer_ranges <- function() {
+softlayer_ranges <- function(method="list") {
 
-  res <- httr::GET("https://knowledgelayer.softlayer.com/content/what-ip-ranges-do-i-allow-through-firewall")
-  r <- httr::content(res, as="parsed", encoding="UTF-8")
-  rvest::html_nodes(r, xpath=".//table[1]") %>%
-    rvest::html_table() -> soft
+  method <- match.arg(method, c("list", "asn"))
 
-  soft <- soft[[1]]
+  if (method=="list") {
 
-  colnames(soft) <-
-    colnames(soft) %>%
-    stri_trans_tolower() %>%
-    stri_replace_all_fixed(" ", "_")
+    res <- httr::GET("https://knowledgelayer.softlayer.com/content/what-ip-ranges-do-i-allow-through-firewall")
+    r <- httr::content(res, as="parsed", encoding="UTF-8")
+    rvest::html_nodes(r, xpath=".//table[1]") %>%
+      rvest::html_table() -> soft
 
-  soft <- as_tibble(soft)
+    soft <- soft[[1]]
 
-  class(soft) <- c("cidr", "softlayer", class(soft))
+    colnames(soft) <-
+      colnames(soft) %>%
+      stri_trans_tolower() %>%
+      stri_replace_all_fixed(" ", "_")
+
+    soft <- as_tibble(soft)
+
+    class(soft) <- c("cidr", "softlayer", class(soft))
+
+  } else if (method=="asn") {
+
+    sl_asns <- c("AS46704", "AS46703", "AS46702", "AS36420", "AS36351",
+                 "AS30315", "AS21844", "AS13884", "AS13749")
+
+    purrr::map(sprintf("http://ipinfo.io/%s", sl_asns), function(sl_asn_url) {
+      res <- httr::GET(sl_asn_url)
+      r <- httr::content(res, as="parsed")
+      rvest::html_nodes(r, xpath=".//h2[@id='blocks']/following-sibling::table[1]") %>%
+        rvest::html_table() -> tab
+      if (!("Netblock" %in% colnames(tab[[1]]))) return(NULL)
+      unlist(tab[[1]]$Netblock)
+    }) %>%
+      purrr::discard(is.null) %>%
+      purrr::flatten_chr() -> soft
+  }
 
   soft
 

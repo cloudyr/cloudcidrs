@@ -14,6 +14,10 @@ azure_ranges()
 Retrieves the official list of Azure cloud network ranges.
 }
 \details{
+Microsoft publishes their Azure ranges via a downloadable XML (ugh) file that you
+can retrieve starting from
+\href{https://www.microsoft.com/en-us/download/confirmation.aspx?id=41653}{this page}.
+
 It is unlikely that this list will change in your analysis session, so it is
 recommended that you cache the results. Future version will automatically cache
 the results both in-session and on-disk for a period of time.

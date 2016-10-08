@@ -83,8 +83,16 @@
     <p>Retrieves the official list of Softlayer cloud network ranges.</p>
     
 
-    <pre><span class='fu'>softlayer_ranges</span>()</pre>
-        
+    <pre><span class='fu'>softlayer_ranges</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"list"</span>)</pre>
+    
+    <h2>Arguments</h2>
+    <dl class="dl-horizontal">
+      <dt>method</dt>
+      <dd>if <code>list</code>, this method will use the HTML published ranges; if
+<code>asn</code>, this method will build the CIDR list from Softlayer publishedf
+ASNs.</dd>
+    </dl>
+    
     <div class="Value">
       <h2>Value</h2>
 
@@ -94,6 +102,8 @@
     <div class="Details">
       <h2>Details</h2>
 
+      <p>Softlayer provides <a href = 'a list'>https://knowledgelayer.softlayer.com/content/what-ip-ranges-do-i-allow-through-firewall</a>
+of public netblock ranges</p>
       <p>It is unlikely that this list will change in your analysis session, so it is
 recommended that you cache the results. Future version will automatically cache
 the results both in-session and on-disk for a period of time.</p>
