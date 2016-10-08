@@ -8,7 +8,7 @@ softlayer_ranges(method = "list")
 }
 \arguments{
 \item{method}{if \code{list}, this method will use the HTML published ranges; if
-\code{asn}, this method will build the CIDR list from Softlayer publishedf
+\code{asn}, this method will build the CIDR list from Softlayer published
 ASNs.}
 }
 \value{
@@ -19,7 +19,9 @@ Retrieves the official list of Softlayer cloud network ranges.
 }
 \details{
 Softlayer provides \href{https://knowledgelayer.softlayer.com/content/what-ip-ranges-do-i-allow-through-firewall}{a list}
-of public netblock ranges
+of public netblock ranges. Softlayer also has a large number of large ASNs. Which
+list is accurate is up for debate. Methods are provided that enable using either of
+these sources to generate the CIDR list.
 
 It is unlikely that this list will change in your analysis session, so it is
 recommended that you cache the results. Future version will automatically cache
