@@ -1,23 +1,20 @@
 language: r
-warnings_are_errors: true
 sudo: required
-
 r:
- - oldrel
- - release
- - devel
-
+- oldrel
+- release
+- devel
 after_success:
-  - Rscript -e 'covr::codecov()'
-
+- Rscript -e 'covr::codecov()'
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash drat.sh
 env:
- global:
-   - CRAN: http://cran.rstudio.com
-
+  global:
+  - CRAN: http://cran.rstudio.com
+  - secure: GwBlqNSSIqLo/LVUdmTf+214QP4eB6FPykQKJZbhsJF2uFjS5QsotY1TV/G4JG59Fy46HpEHEx/MDPNxXW5o17ud7W6Y6ZfL5+jSaY6x/qFcwROPOTR6mPgNsXDrCvHBifKmugOlBPwXG+27dv8hwFO3XUh2uYCnBASRG7IYyXcpyuWB+Q79px4CAUzFywE/QvfFB5oqLxtcqJO2lyLaFVAFLnOFrJM5ejR9GhmTYKt/Mld32N0AEXgNKuXc24pdyV+pmxZZAPXVb1S5LLPT0PTlmwDhnbmnbOBZe2JsIVCOzrzSXbNk4uAXL2rEV2oa2nwoArztm8cUWGOdWz7T+rClC7lBI2lZzFvKBkui3yAbPffMgDgXsot4PJBd1ID2jVesQw1d3Pj8QjJsUm+sCk1G5uXopBUhcTYtzqOwhWiJ/1HJNZkFxAnSw2cRSHh02sHrZf8IvveuRtQ68yQCNSwTE+/vi3/MEzTjAG5XONwkzrSzn9bTJosUB3CJGJBe2jrDqYq54AJAP2cjE5yXt+n7yRFILaYvENA37s9hJCFeTEGnovzscHYD5v18YGDH+nn+WFxFP1IOFG95eYWH/VdIH0mvGNfhjvR+E8OCdzI7KndR4Wz2RfUFHwvJ9tLvFUkS0Qp/gmszR8GaTkeLgLh8+NBMlyOg11XKyMqodzI=
 notifications:
   email:
-    - bob@rud.is
+  - bob@rud.is
   irc:
     channels:
-      - "104.236.112.222#builds"
+    - 104.236.112.222#builds
     nick: travisci
