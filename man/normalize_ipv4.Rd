@@ -20,7 +20,7 @@ amazon_ranges() \%>\% normalize_ipv4()
 azure_ranges() \%>\% normalize_ipv4()
 digitalocean_ranges() \%>\% normalize_ipv4()
 google_ranges() \%>\% normalize_ipv4()
+linode_ranges() \%>\% normalize_ipv4()
 rackspace_ranges() \%>\% normalize_ipv4()
 softlayer_ranges() \%>\% normalize_ipv4()
 }
-

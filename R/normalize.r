@@ -12,6 +12,7 @@
 #' azure_ranges() %>% normalize_ipv4()
 #' digitalocean_ranges() %>% normalize_ipv4()
 #' google_ranges() %>% normalize_ipv4()
+#' linode_ranges() %>% normalize_ipv4()
 #' rackspace_ranges() %>% normalize_ipv4()
 #' softlayer_ranges() %>% normalize_ipv4()
 normalize_ipv4 <- function(x) {
@@ -20,8 +21,10 @@ normalize_ipv4 <- function(x) {
   if (inherits(x, "azure")) return(unlist(x$subnets))
   if (inherits(x, "digitalocean")) return(x)
   if (inherits(x, "google")) return(unlist(x$ipv4))
+  if (inherits(x, "linode")) return(x)
+  if (inherits(x, "ovh")) return(x)
   if (inherits(x, "rackspace")) return(x)
-  if (inherits(x, "softlayer")) return(unlist(x$ip_range))
+  if (inherits(x, "softlayer")) return(x)
 
   warning("Cloud provider not recognized")
   return(NULL)

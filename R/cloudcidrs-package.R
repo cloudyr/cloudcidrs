@@ -14,8 +14,9 @@
 #' @import purrr httr gdns stringi
 #' @importFrom xml2 read_xml xml_find_first xml_attr xml_find_all
 #' @importFrom jsonlite fromJSON
-#' @importFrom tibble as_tibble
 #' @importFrom rvest html_nodes html_table
+#' @importFrom iptools is_ipv4
+#' @importFrom dplyr filter mutate select pull bind_rows data_frame bind_cols tbl_df
 NULL
 
 #' Pipe operator

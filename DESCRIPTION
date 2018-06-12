@@ -1,8 +1,8 @@
 Package: cloudcidrs
 Type: Package
 Title: Tools to Obtain and Work with Cloud Provider CIDR Blocks
-Version: 0.1.0
-Date: 2016-10-04
+Version: 0.1.1
+Date: 2016-10-12
 Author: Bob Rudis (bob@rud.is)
 Maintainer: Bob Rudis <bob@rud.is>
 Description: Some cloud providers provide either an API or a file that contains all of the
@@ -17,20 +17,24 @@ BugReports: https://github.com/cloudyr/cloudcidrs/issues
 License: AGPL
 Suggests:
     testthat,
-    iptools,
     urltools,
     rgeolocate,
     cymruservices,
     covr
+LazyData: true
 Depends:
     R (>= 3.2.0)
 Imports:
     purrr,
+    iptools,
     httr,
     jsonlite,
     gdns,
     stringi,
     xml2,
     rvest,
-    tibble
-RoxygenNote: 5.0.1
+    dplyr,
+RoxygenNote: 6.0.1.9000
+Encoding: UTF-8
+Remotes:
+   hrbrmstr/ripestat

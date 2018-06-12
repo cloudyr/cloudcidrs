@@ -6,7 +6,11 @@ output: rmarkdown::github_document
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/cloudyr/cloudcidrs?branch=master&svg=true)](https://ci.appveyor.com/project/cloudyr/cloudcidrs)
 [![Coverage Status](https://img.shields.io/codecov/c/github/cloudyr/cloudcidrs/master.svg)](https://codecov.io/github/cloudyr/cloudcidrs?branch=master)
 
-`cloudcidrs` : Tools to Obtain and Work with Cloud Provider CIDR Blocks
+# cloudcidrs
+
+Tools to Obtain and Work with Cloud Provider CIDR Blocks
+
+## Description
 
 Cloud providers will be added on an as-needed or request basis (i.e. if you need another 
 cloud provider, file an issue or — prefereably — PR).
@@ -23,17 +27,22 @@ A future plan is to [`memoise`](https://cran.r-project.org/package=memoise) the 
 and also provide disk-level caching since these CIDRs don't change frequently enough to 
 warrant network traffic for each call.
 
+## What's Inside the Tin
+
 The following functions are implemented:
 
+- `all_ranges`:	Build a complete data frame of all known cloud provider ranges
 - `amazon_ranges`:	Amazon AWS cloud ranges
 - `azure_ranges`:	Azure ranges
 - `digitalocean_ranges`:	Digital Ocean ranges
 - `google_ranges`:	Google Cloud ranges
+- `linode_ranges`:	Linode ranges
+- `normalize_ipv4`:	Normalize Cloud CIDR return values
+- `ovh_ranges`:	OVH ranges
 - `rackspace_ranges`:	Rackspace ranges
 - `softlayer_ranges`:	Softlayer ranges
-- `normalize_ipv4`:	Normalize Cloud CIDR return values
 
-### Installation
+## Installation
 
 ```{r eval=FALSE}
 devtools::install_git("https://github.com/cloudyr/cloudcidrs.git")
@@ -43,7 +52,7 @@ devtools::install_git("https://github.com/cloudyr/cloudcidrs.git")
 options(width=120)
 ```
 
-### Usage
+## Usage
 
 ```{r message=FALSE, warning=FALSE, error=FALSE, cache=TRUE}
 library(cloudcidrs)
@@ -51,28 +60,7 @@ library(cloudcidrs)
 # current verison
 packageVersion("cloudcidrs")
 
-amazon_ranges() %>%  normalize_ipv4()
-
-azure_ranges() %>%  normalize_ipv4()
-
-digitalocean_ranges() %>%  normalize_ipv4()
-
-google_ranges() %>%  normalize_ipv4()
-
-rackspace_ranges() %>%  normalize_ipv4()
-
-softlayer_ranges() %>%  normalize_ipv4()
-```
-
-### Test Results
-
-```{r message=FALSE, warning=FALSE, error=FALSE}
-library(cloudcidrs)
-library(testthat)
-
-date()
-
-test_dir("tests/")
+all_ranges()
 ```
 
 

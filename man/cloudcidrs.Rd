@@ -17,4 +17,3 @@ further processing.
 \author{
 Bob Rudis (bob@rud.is)
 }
-

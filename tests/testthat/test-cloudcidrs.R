@@ -10,7 +10,7 @@ test_that("functions return valid structures", {
   expect_is(normalize_ipv4(azure), "character")
 
   digitalocean <- digitalocean_ranges()
-  expect_true(length(digitalocean)>100)
+  expect_true(length(digitalocean)>90)
   expect_is(normalize_ipv4(digitalocean), "character")
 
   google <- google_ranges()
@@ -22,7 +22,7 @@ test_that("functions return valid structures", {
   expect_is(normalize_ipv4(rackspace), "character")
 
   softlayer <- softlayer_ranges()
-  expect_equal(length(softlayer), 5)
+  expect_true(length(softlayer)>100)
   expect_is(normalize_ipv4(softlayer), "character")
 
 })
