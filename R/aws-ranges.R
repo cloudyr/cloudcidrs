@@ -2,7 +2,7 @@
 #'
 #' Retrieves the official list of Amazon cloud network ranges.
 #'
-#' Amazon provides their official netblock list in \href{https://ip-ranges.amazonaws.com/ip-ranges.json}{JSON format}.
+#' Amazon provides their official netblock list in \href{JSON format}{https://ip-ranges.amazonaws.com/ip-ranges.json}.
 #'
 #' It is unlikely that this list will change in your analysis session, so it is
 #' recommended that you cache the results. Future versions will automatically cache
